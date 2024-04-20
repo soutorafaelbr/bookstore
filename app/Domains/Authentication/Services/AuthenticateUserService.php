@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Utils\Authentication\Services;
+namespace App\Domains\Authentication\Services;
 
+use App\Domains\Authentication\DTOS\AuthenticateUserDTO;
+use App\Domains\Authentication\DTOS\UserTokenDTO;
 use App\Exceptions\AuthenticationFailedException;
 use App\Models\User;
-use App\Utils\Authentication\DTOS\AuthenticateUserDTO;
-use App\Utils\Authentication\DTOS\UserTokenDTO;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticateUserService

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils\Authentication\DTOS;
+namespace App\Domains\Authentication\DTOS;
 
 class UserTokenDTO
 {
