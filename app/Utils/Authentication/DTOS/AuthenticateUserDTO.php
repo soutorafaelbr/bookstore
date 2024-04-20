@@ -1,6 +1,6 @@
 <?php
 
-namespace App\utils\Authentication\DTOS;
+namespace App\Utils\Authentication\DTOS;
 
 class AuthenticateUserDTO
 {

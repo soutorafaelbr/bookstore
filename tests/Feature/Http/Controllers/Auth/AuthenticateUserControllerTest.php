@@ -2,9 +2,7 @@
 
 namespace Http\Controllers\Auth;
 
-use App\Exceptions\AuthenticationFailedException;
 use App\Models\User;
-use Database\Factories\UserFactory;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -17,7 +15,7 @@ class AuthenticateUserControllerTest extends TestCase
     {
         $user = User::factory()->create(['password' => Hash::make('password')]);
 
-        $this->postJson(route('auth.user'), ['email' => $user->email, 'password' => 'password'])
+        $this->withoutExceptionHandling()->postJson(route('auth.user'), ['email' => $user->email, 'password' => 'password'])
             ->assertOk();
 
         $this->assertAuthenticatedAs($user, 'web');
