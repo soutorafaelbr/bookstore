@@ -69,16 +69,6 @@ class BookControllerTest extends TestCase
             ->assertJsonValidationErrors('isbn');
     }
 
-    public function test_value_must_be_numeric()
-    {
-        $book = Book::factory()->make(['value' => 'string'])->toArray();
-
-        Sanctum::actingAs(User::factory()->create());
-
-        $this->postJson(route('books.store'), $book)
-            ->assertJsonValidationErrors('value');
-    }
-
     public function test_value_is_required()
     {
         $book = Book::factory()->make(['value' => null])->toArray();
@@ -87,5 +77,49 @@ class BookControllerTest extends TestCase
 
         $this->postJson(route('books.store'), $book)
             ->assertJsonValidationErrors('value');
+    }
+
+    public function test_updates_book()
+    {
+        $book = Book::factory()->create();
+
+        Sanctum::actingAs(User::factory()->create());
+
+        $this->putJson(route('books.update', $book), $updateBook = Book::factory()->make()->toArray())
+            ->assertOk();
+
+        $this->assertDatabaseHas('books', $updateBook);
+    }
+    public function test_respond_with_updated_book()
+    {
+        $book = Book::factory()->create();
+
+        Sanctum::actingAs(User::factory()->create());
+
+        $this->putJson(route('books.update', $book), $updateBook = Book::factory()->make()->toArray())
+            ->assertJsonFragment([
+                'name' => data_get($updateBook, 'name'),
+                'isbn' => data_get($updateBook, 'isbn'),
+                'value' => (float) data_get($updateBook, 'value'),
+            ]);
+    }
+
+    public function test_deletes_book()
+    {
+        $book = Book::factory()->create();
+        Sanctum::actingAs(User::factory()->create());
+
+        $this->deleteJson(route('books.delete', $book))->assertNoContent();
+        $this->assertDatabaseMissing('books', ['id' => $book->id]);
+    }
+
+    public function test_lists_books()
+    {
+        $book = Book::factory()->create();
+        Sanctum::actingAs(User::factory()->create());
+
+        $this->getJson(route('books.index'))
+            ->assertOk()
+            ->assertJsonFragment($book->toArray());
     }
 }

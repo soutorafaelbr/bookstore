@@ -37,3 +37,16 @@ Route::delete('stores/{store}', [StoreController::class, 'delete'])
 Route::post('books', [BookController::class, 'store'])
     ->name('books.store')
     ->middleware('auth:sanctum');
+
+Route::put('books/{book}', [BookController::class, 'update'])
+    ->name('books.update')
+    ->middleware('auth:sanctum');
+
+Route::delete('books/{book}', [BookController::class, 'delete'])
+    ->name('books.delete')
+    ->middleware('auth:sanctum');
+
+Route::get('books', [BookController::class, 'index'])
+    ->name('books.index')
+    ->middleware('auth:sanctum');
+

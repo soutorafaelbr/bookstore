@@ -14,4 +14,8 @@ class Book extends Model
         'name',
         'value',
     ];
+
+    protected $casts = [
+        'value' => 'float',
+    ];
 }
