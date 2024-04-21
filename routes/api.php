@@ -24,3 +24,11 @@ Route::patch('stores/{store}', [StoreController::class, 'update'])
 Route::post('stores', [StoreController::class, 'store'])
     ->name('stores.store')
     ->middleware('auth:sanctum');
+
+Route::get('stores', [StoreController::class, 'index'])
+    ->name('stores.index')
+    ->middleware('auth:sanctum');
+
+Route::delete('stores/{store}', [StoreController::class, 'delete'])
+    ->name('stores.delete')
+    ->middleware('auth:sanctum');

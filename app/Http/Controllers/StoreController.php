@@ -38,4 +38,16 @@ class StoreController extends Controller
 
         return response()->json($store->toArray(), JsonResponse::HTTP_OK);
     }
+
+    public function delete(Store $store): JsonResponse
+    {
+        $this->storeRepository->delete($store);
+
+        return response()->json([], JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    public function index(): JsonResponse
+    {
+        return response()->json($this->storeRepository->getPaginated(), JsonResponse::HTTP_OK);
+    }
 }

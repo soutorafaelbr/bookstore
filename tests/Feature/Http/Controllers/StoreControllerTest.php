@@ -114,4 +114,12 @@ class StoreControllerTest extends TestCase
             ->patchJson(route('stores.update', $store->id), Store::factory()->make()->toArray())
             ->assertOk();
     }
+
+    public function test_lists_stores()
+    {
+        Sanctum::actingAs(User::factory()->create());
+        Store::factory()->count(10)->create();
+
+        $this->getJson(route('stores.index'))->assertOk();
+    }
 }

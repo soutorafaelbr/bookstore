@@ -11,4 +11,8 @@ interface StoreRepository
     public function create(PersistStoreDTO $persistStoreDTO): Model;
 
     public function update(Store $store, PersistStoreDTO $persistStoreDTO);
+
+    public function delete(Store $store);
+
+    public function getPaginated();
 }
