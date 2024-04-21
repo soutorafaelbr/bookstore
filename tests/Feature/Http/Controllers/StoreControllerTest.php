@@ -108,4 +108,14 @@ class StoreControllerTest extends TestCase
 
         $this->getJson(route('stores.index'))->assertOk();
     }
+
+    public function test_deletes_store()
+    {
+        Sanctum::actingAs(User::factory()->create());
+        $store = Store::factory()->create();
+
+        $this->delete(route('stores.delete', $store->id))->assertNoContent();
+
+        $this->assertDatabaseMissing('stores', ['id' => $store->id]);
+    }
 }
