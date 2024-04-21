@@ -66,4 +66,52 @@ class StoreControllerTest extends TestCase
                 'active' => $store->active,
             ]);
     }
+
+    public function test_updates_a_store()
+    {
+        Sanctum::actingAs($user = User::factory()->create());
+
+        $store = Store::factory()->create();
+
+        $this->actingAs($user)
+            ->withoutExceptionHandling()
+            ->patchJson(route('stores.update', $store->id), $updatedStore = Store::factory()->make()->toArray());
+
+        $this->assertDatabaseHas(
+            'stores',
+            [
+                'name' => data_get($updatedStore, 'name'),
+                'address' => data_get($updatedStore, 'address'),
+                'active' => data_get($updatedStore, 'active'),
+            ]
+        );
+    }
+
+    public function test_responds_with_updated_data()
+    {
+        Sanctum::actingAs($user = User::factory()->create());
+
+        $store = Store::factory()->create();
+
+        $this->actingAs($user)
+            ->withoutExceptionHandling()
+            ->patchJson(route('stores.update', $store->id), $updatedStore = Store::factory()->make()->toArray())
+            ->assertJson([
+                'name' => data_get($updatedStore, 'name'),
+                'address' => data_get($updatedStore, 'address'),
+                'active' => data_get($updatedStore, 'active'),
+            ]);
+    }
+
+    public function test_responds_with_status_200_after_update()
+    {
+        Sanctum::actingAs($user = User::factory()->create());
+
+        $store = Store::factory()->create();
+
+        $this->actingAs($user)
+            ->withoutExceptionHandling()
+            ->patchJson(route('stores.update', $store->id), Store::factory()->make()->toArray())
+            ->assertOk();
+    }
 }

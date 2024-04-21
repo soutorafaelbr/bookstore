@@ -2,7 +2,7 @@
 
 namespace App\Domains\Stores\DTOS;
 
-class CreateStoreDTO
+class PersistStoreDTO
 {
     public function __construct(public string $name, public string $address, public bool $active) {}
 }

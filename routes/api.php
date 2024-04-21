@@ -17,6 +17,10 @@ Route::post('auth/logout', LogOutController::class)
     ->name('auth.logout')
     ->middleware('auth:sanctum');
 
+Route::patch('stores/{store}', [StoreController::class, 'update'])
+    ->name('stores.update')
+    ->middleware('auth:sanctum');
+
 Route::post('stores', [StoreController::class, 'store'])
     ->name('stores.store')
     ->middleware('auth:sanctum');

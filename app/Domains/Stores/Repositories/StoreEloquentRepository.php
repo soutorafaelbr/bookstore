@@ -2,18 +2,30 @@
 
 namespace App\Domains\Stores\Repositories;
 
-use App\Domains\Stores\DTOS\CreateStoreDTO;
+use App\Domains\Stores\DTOS\PersistStoreDTO;
+use App\Models\Store;
 use App\Repositories\Repository;
 use Illuminate\Database\Eloquent\Model;
 
 class StoreEloquentRepository extends Repository implements StoreRepository
 {
-    public function create(CreateStoreDTO $createStoreDTO): Model
+    public function create(PersistStoreDTO $persistStoreDTO): Model
     {
         return $this->query()->create([
-            'name' => $createStoreDTO->name,
-            'address' => $createStoreDTO->address,
-            'active' => $createStoreDTO->active,
+            'name' => $persistStoreDTO->name,
+            'address' => $persistStoreDTO->address,
+            'active' => $persistStoreDTO->active,
         ]);
+    }
+
+    public function update(Store $store, PersistStoreDTO $persistStoreDTO)
+    {
+        $store->update([
+            'name' => $persistStoreDTO->name,
+            'address' => $persistStoreDTO->address,
+            'active' => $persistStoreDTO->active,
+        ]);
+
+        return $store->fresh();
     }
 }

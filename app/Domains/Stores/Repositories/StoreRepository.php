@@ -2,10 +2,13 @@
 
 namespace App\Domains\Stores\Repositories;
 
-use App\Domains\Stores\DTOS\CreateStoreDTO;
+use App\Domains\Stores\DTOS\PersistStoreDTO;
+use App\Models\Store;
 use Illuminate\Database\Eloquent\Model;
 
 interface StoreRepository
 {
-    public function create(CreateStoreDTO $createStoreDTO): Model;
+    public function create(PersistStoreDTO $persistStoreDTO): Model;
+
+    public function update(Store $store, PersistStoreDTO $persistStoreDTO);
 }
