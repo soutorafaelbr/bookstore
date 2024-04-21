@@ -11,7 +11,7 @@ class StoreControllerTest extends TestCase
 {
     public function test_stores_a_store()
     {
-        Sanctum::actingAs($user = User::factory()->create());
+        Sanctum::actingAs(User::factory()->create());
 
         $store = Store::factory()->make();
 
@@ -29,9 +29,7 @@ class StoreControllerTest extends TestCase
 
     public function test_responds_with_created_status()
     {
-        $store = Store::factory()->create();
-
-        Sanctum::actingAs($user = User::factory()->create());
+        Sanctum::actingAs(User::factory()->create());
 
         $store = Store::factory()->make();
 
@@ -49,7 +47,7 @@ class StoreControllerTest extends TestCase
 
     public function test_responds_with_store()
     {
-        Sanctum::actingAs($user = User::factory()->create());
+        Sanctum::actingAs(User::factory()->create());
 
         $store = Store::factory()->make();
 
@@ -63,7 +61,7 @@ class StoreControllerTest extends TestCase
 
     public function test_updates_a_store()
     {
-        Sanctum::actingAs($user = User::factory()->create());
+        Sanctum::actingAs(User::factory()->create());
 
         $store = Store::factory()->create();
 
