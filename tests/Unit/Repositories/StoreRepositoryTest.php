@@ -4,6 +4,7 @@ namespace Repositories;
 
 use App\Domains\Stores\DTOS\PersistStoreDTO;
 use App\Domains\Stores\Repositories\StoreRepository;
+use App\Models\Book;
 use App\Models\Store;
 use Tests\TestCase;
 
@@ -76,5 +77,15 @@ class StoreRepositoryTest extends TestCase
         $response = $this->repository->getPaginated();
 
         $this->assertTrue($response->contains($store));
+    }
+
+    public function test_book_store()
+    {
+        $store = Store::factory()->create();
+        $book = Book::factory()->create();
+
+        $this->repository->associateBook($store, $book);
+
+        $this->assertDatabaseHas('book_store', ['store_id' => $store->id, 'book_id' => $book->id]);
     }
 }

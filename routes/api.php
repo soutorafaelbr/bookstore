@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticateUserController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookStoreController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,3 +51,6 @@ Route::get('books', [BookController::class, 'index'])
     ->name('books.index')
     ->middleware('auth:sanctum');
 
+Route::post('store/{store}/books/{book}', BookStoreController::class)
+    ->name('store-books.store')
+    ->middleware('auth:sanctum');

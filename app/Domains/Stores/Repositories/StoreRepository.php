@@ -3,6 +3,7 @@
 namespace App\Domains\Stores\Repositories;
 
 use App\Domains\Stores\DTOS\PersistStoreDTO;
+use App\Models\Book;
 use App\Models\Store;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,4 +16,6 @@ interface StoreRepository
     public function delete(Store $store);
 
     public function getPaginated();
+
+    public function associateBook(Store $store, Book $book);
 }

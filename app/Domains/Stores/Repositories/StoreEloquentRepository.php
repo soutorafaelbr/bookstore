@@ -3,6 +3,7 @@
 namespace App\Domains\Stores\Repositories;
 
 use App\Domains\Stores\DTOS\PersistStoreDTO;
+use App\Models\Book;
 use App\Models\Store;
 use App\Repositories\Repository;
 use Illuminate\Database\Eloquent\Model;
@@ -38,5 +39,10 @@ class StoreEloquentRepository extends Repository implements StoreRepository
     public function getPaginated(): LengthAwarePaginator
     {
         return $this->query()->paginate(10);
+    }
+
+    public function associateBook(Store $store, Book $book)
+    {
+        $store->books()->attach($book);
     }
 }
